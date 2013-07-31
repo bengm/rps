@@ -1,0 +1,6 @@
+development:
+  adapter: postgresql
+  database: rpsbb
+  username: postgres
+  password: postgres
+  host: localhost

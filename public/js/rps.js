@@ -58,7 +58,8 @@ RPS.Game = Backbone.Model.extend({
 
 });
 RPS.Games = Backbone.Collection.extend({
-  model: RPS.Game
+  model: RPS.Game,
+    url: '/games'
 });
 
 RPS.PlayView = Backbone.Marionette.ItemView.extend({

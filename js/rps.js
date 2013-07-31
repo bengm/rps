@@ -6,7 +6,7 @@ RPS.addRegions({
   historyRegion: "#historyRegion"
 });
 
-Game = Backbone.Model.extend({
+RPS.Game = Backbone.Model.extend({
   
   defaults: {
     time: new Date()
@@ -44,7 +44,7 @@ Game = Backbone.Model.extend({
   },
 
   showRound: function(){
-    var resultView = new GameView({template:'#resultTemplate',model:this, tagName:'div'});
+    var resultView = new RPS.GameView({template:'#resultTemplate',model:this, tagName:'div'});
     RPS.resultRegion.show(resultView);
   },
 
@@ -57,11 +57,11 @@ Game = Backbone.Model.extend({
   }
 
 });
-Games = Backbone.Collection.extend({
-  model: Game
+RPS.Games = Backbone.Collection.extend({
+  model: RPS.Game
 });
 
-PlayView = Backbone.Marionette.ItemView.extend({
+RPS.PlayView = Backbone.Marionette.ItemView.extend({
   
   template: "#playTemplate",
  
@@ -72,20 +72,20 @@ PlayView = Backbone.Marionette.ItemView.extend({
   },
 
   playRock: function(){
-    this.collection.add(new Game({playerMove: 'Rock'}));
+    this.collection.add(new RPS.Game({playerMove: 'Rock'}));
   },
 
   playPaper: function(){
-    this.collection.add(new Game({playerMove: 'Paper'}));
+    this.collection.add(new RPS.Game({playerMove: 'Paper'}));
   },
 
   playScissors: function(){
-    this.collection.add(new Game({playerMove: 'Scissors'}));
+    this.collection.add(new RPS.Game({playerMove: 'Scissors'}));
   }
 
 });
 
-GameView = Backbone.Marionette.ItemView.extend({
+RPS.GameView = Backbone.Marionette.ItemView.extend({
   template: "#gameTemplate",
   tagName:  'tr',
   serializeData: function(){
@@ -105,22 +105,22 @@ GameView = Backbone.Marionette.ItemView.extend({
   }
 });
 
-GamesView = Backbone.Marionette.CompositeView.extend({
+RPS.GamesView = Backbone.Marionette.CompositeView.extend({
   tagName: "table",
   className: "table table-bordered table-striped table-hover",
   id: "games",
   template: "#gamesTemplate",
-  itemView: GameView,
+  itemView: RPS.GameView,
   appendHtml: function(collectionView, itemView) {
     collectionView.$("tbody").prepend(itemView.el);
   }
 });
 
 RPS.addInitializer(function(options){
-  var gamesView = new GamesView({
+  var gamesView = new RPS.GamesView({
     collection: options.games
   });
-  var playView = new PlayView({
+  var playView = new RPS.PlayView({
     collection: options.games
   });
   
@@ -131,6 +131,6 @@ RPS.addInitializer(function(options){
 
 // Start the Application & bootstrap the data
 $(document).ready(function(){
-  var games = new Games();
+  var games = new RPS.Games();
   RPS.start({games: games});
 });

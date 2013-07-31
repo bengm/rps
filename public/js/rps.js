@@ -131,6 +131,6 @@ RPS.addInitializer(function(options){
 
 // Start the Application & bootstrap the data
 $(document).ready(function(){
-  var games = new RPS.Games();
-  RPS.start({games: games});
+  RPS.games = new RPS.Games();
+  RPS.start({games: RPS.games});
 });

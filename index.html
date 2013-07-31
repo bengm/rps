@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Rock, Paper, Scissors</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Jet black and electric blue.">
+    <meta name="author" content="Thomas Park">
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/rps.css" rel="stylesheet">
+
+  </head>
+
+  <body class="preview" id="top" data-spy="scroll" data-target=".subnav" data-offset="80">
+
+
+  <!-- Navbar
+    ================================================== -->
+ <div class="navbar navbar-fixed-top">
+   <div class="navbar-inner">
+     <div class="container">
+       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+       </a>
+       <a class="brand" href="../">RPS</a>
+       <div class="nav-collapse collapse" id="main-menu">
+        <ul class="nav" id="main-menu-left">
+          
+          <li><a id="swatch-link" href="../#gallery">Gallery</a></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Preview <b class="caret"></b></a>
+            <ul class="dropdown-menu" id="swatch-menu">
+              <li><a href="../default/">Default</a></li>
+              <li class="divider"></li>
+              <li><a href="../amelia/">Amelia</a></li>
+              <li><a href="../cerulean/">Cerulean</a></li>
+              <li><a href="../cosmo/">Cosmo</a></li>
+              <li><a href="../cyborg/">Cyborg</a></li>
+              <li><a href="../flatly/">Flatly</a></li>
+              <li><a href="../journal/">Journal</a></li>
+              <li><a href="../readable/">Readable</a></li>
+              <li><a href="../simplex/">Simplex</a></li>
+              <li><a href="../slate/">Slate</a></li>
+              <li><a href="../spacelab/">Spacelab</a></li>
+              <li><a href="../spruce/">Spruce</a></li>
+              <li><a href="../superhero/">Superhero</a></li>
+              <li><a href="../united/">United</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="nav pull-right" id="main-menu-right">
+          <li><a rel="tooltip" target="_blank" href="http://builtwithbootstrap.com/" title="Showcase of Bootstrap sites &amp; apps" onclick="_gaq.push(['_trackEvent', 'click', 'outbound', 'builtwithbootstrap']);">Built With Bootstrap <i class="icon-share-alt"></i></a></li>
+          <li><a rel="tooltip" target="_blank" href="https://wrapbootstrap.com/?ref=bsw" title="Marketplace for premium Bootstrap templates" onclick="_gaq.push(['_trackEvent', 'click', 'outbound', 'wrapbootstrap']);">WrapBootstrap <i class="icon-share-alt"></i></a></li>
+        </ul>
+       </div>
+     </div>
+   </div>
+ </div>
+
+<div class="container">
+
+
+<!-- Masthead
+================================================== -->
+<header class="jumbotron subhead" id="overview">
+  <div class="row">
+    <div class="span12">
+      <h1>Rock, Paper, Scissors</h1>
+      <p class="lead">Finally, a strategy game equal to your intellect.</p>
+    </div>
+  </div>
+</header>
+
+
+<!-- Main content
+================================================== -->
+<section id="typography">
+  <div class="row">
+
+    <div class="span4">
+      <div class="well" id="playRegion"></div>
+        <script type="text/template" id="playTemplate">
+        <h2>Make Your Play</h2>
+        <button id="playRock" class="btn"><i class="icon-lemon icon-large"></i> Rock</button>
+        <button id="playPaper" class="btn"><i class="icon-file-text-alt icon-large"></i> Paper</button>
+        <button id="playScissors" class="btn"><i class="icon-cut icon-large"></i> Scissor</button>
+        </script>
+    </div>
+
+    <div class="span4">
+      <div id="resultRegion"></div>
+      <script type="text/template" id="resultTemplate">
+      <div class="well result-<%=result%>" style="text-align:center">
+        <h2>This Round...</h2>
+        <span style="font-size: 2em;">
+          <i class="icon-large icon-light icon-<%=playerMoveIcon%>"></i> 
+          vs. 
+          <i class="icon-large icon-light icon-<%=opponentMoveIcon%>"></i> 
+          = 
+          <i class="icon-large icon-light icon-<%=resultIcon%>"></i>
+        </span>
+      </div>
+      </script>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span8">
+      <h2>History</h2>
+      <div id="historyRegion"></div>
+      <script type="text/template" id="gamesTemplate">
+      <table class="table table-bordered table-striped table-hover">
+      <thead>
+        <tr class='header'>
+          <th>Time</th>
+          <th>Player Move</th>
+          <th>Opponent Move</th>
+          <th>Result</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+      </table>
+      </script>
+      <script type="text/template" id="gameTemplate">
+        <th><%= displayTime %></th>
+        <th><%= playerMove %></th>
+        <th><%= opponentMove %></th>
+        <th><%= result %></th>
+      </script>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+
+
+<br><br><br><br>
+
+     <!-- Footer
+      ================================================== -->
+      <hr>
+
+      <footer id="footer">
+        <p class="pull-right"><a href="#top">Back to top</a></p>
+        Made by Ben Morris (<a href="">@bengm on twitter</a>).<br/>
+        Code on <a href="http://www.apache.org/licenses/LICENSE-2.0">GitHub</a>.<br/>
+        Theme from <a href="http://bootswatch.com/cyborg/">Bootswatch/Thomas Park</a>.<br/>
+        Theme based on <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>. </p>
+      </footer>
+
+    </div><!-- /container -->
+
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/json2.js"></script>
+    <script src="js/underscore.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/backbone.marionette.js"></script>
+    <script src="js/RPS.js"></script>
+
+  </body>
+</html>

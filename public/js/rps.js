@@ -7,21 +7,29 @@ RPS.addRegions({
 });
 
 RPS.Game = Backbone.Model.extend({
-  
-  defaults: {
-    time: new Date()
-  },
 
   initialize: function(){
-    this.set('opponentMove', ["Rock","Paper","Scissors"][Math.floor(Math.random()*3)] );
-    this.set('time',new Date());
+    if (!this.get('opponentMove')) {
+      this.set('opponentMove', ["Rock","Paper","Scissors"][Math.floor(Math.random()*3)] );  
+    }
+    var original_time = this.get('time');
+
+    if (original_time) {
+      this.set('time', new Date(original_time) ); // use the existing time as a date (vs string)
+    } else {
+      this.set('time', new Date() );
+    }
     this.scoreRound();
     this.setIconValues();
     this.showRound();
   },
 
   displayTime: function() {
-    return (this.get('time').getMonth()+1) + "/" + this.get('time').getDate() + " " + this.get('time').getHours() + ":" + this.get('time').getMinutes();
+    if ( this.get('time') instanceof Date ) {
+      return (this.get('time').getMonth()+1) + "/" + this.get('time').getDate() + " " + this.get('time').getHours() + ":" + this.get('time').getMinutes() + ", " + this.get('time').getSeconds();
+    } else {
+      return "";
+    }
   },
 
 
@@ -59,7 +67,7 @@ RPS.Game = Backbone.Model.extend({
 });
 RPS.Games = Backbone.Collection.extend({
   model: RPS.Game,
-    url: '/games'
+  url: '/games'
 });
 
 RPS.PlayView = Backbone.Marionette.ItemView.extend({
@@ -72,17 +80,15 @@ RPS.PlayView = Backbone.Marionette.ItemView.extend({
     'click button#playScissors': 'playScissors'
   },
 
-  playRock: function(){
-    this.collection.add(new RPS.Game({playerMove: 'Rock'}));
+  play: function(move) {
+    var newGame = new RPS.Game({playerMove: move});
+    this.collection.add(newGame);
+    newGame.save(); 
   },
 
-  playPaper: function(){
-    this.collection.add(new RPS.Game({playerMove: 'Paper'}));
-  },
-
-  playScissors: function(){
-    this.collection.add(new RPS.Game({playerMove: 'Scissors'}));
-  }
+  playRock:     function(){ this.play('Rock');     },
+  playPaper:    function(){ this.play('Paper');    },
+  playScissors: function(){ this.play('Scissors'); }
 
 });
 
@@ -133,5 +139,6 @@ RPS.addInitializer(function(options){
 // Start the Application & bootstrap the data
 $(document).ready(function(){
   RPS.games = new RPS.Games();
+  RPS.games.fetch(); // get data from server
   RPS.start({games: RPS.games});
 });

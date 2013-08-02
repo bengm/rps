@@ -1,7 +1,7 @@
-ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'] || 'sqlite:///dev.db')
 require 'sinatra'
 require './config/environments' #database configuration
 require 'sinatra/activerecord'
+ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'] || 'sqlite:///dev.db')
 require 'json'
 
 use Rack::Logger # to be able to write logs
